@@ -1,13 +1,6 @@
 class Solution {
     public int getSum(int a, int b) {
-        int c;
-        
-        while(b!=0){
-            c = a&b;
-            a ^= b;
-            b = c<<1;
-        }
-        
-        return a;
+      
+        return b==0? a:getSum(a^b, (a&b)<<1);
     }
 }
