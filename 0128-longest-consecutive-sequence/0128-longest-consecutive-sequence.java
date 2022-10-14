@@ -8,18 +8,20 @@ class Solution {
         
         int ans = 0;
         for(int i=0;i<nums.length;i++){
-            set.remove(nums[i]);
-            int l = nums[i]-1, r = nums[i]+1;
-            while(set.contains(l)){
-                set.remove(l);
-                l--;
+            if(set.contains(nums[i])){
+                set.remove(nums[i]);
+                int l = nums[i]-1, r = nums[i]+1;
+                while(set.contains(l)){
+                    set.remove(l);
+                    l--;
+                }
+                while(set.contains(r)){
+                    set.remove(r);
+                    r++;
+                }
+                
+                ans = Math.max(ans, r - l - 1);
             }
-            while(set.contains(r)){
-                set.remove(r);
-                r++;
-            }
-
-            ans = Math.max(ans, r - l - 1);
         }
         
         return ans;
