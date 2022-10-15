@@ -6,12 +6,5 @@ class Solution {
             res = Math.max(res, (sum + i) / (i + 1));
         }
         return (int)res;
-        
-    //     long minmax = 0, sum = 0;
-    // for (int i = 0; i < nums.length; ++i) {
-    //     sum += nums[i];
-    //     minmax = Math.max((sum + i) / (i + 1), minmax);
-    // }
-    // return (int)minmax;
     }
 }
