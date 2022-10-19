@@ -6,32 +6,16 @@ class Solution {
             hm.put(s, hm.getOrDefault(s, 0)+1);
         }
         
-        List<String>[] bucket = new ArrayList[words.length];
+        PriorityQueue<String> pq = new PriorityQueue<>(
+        (a,b) -> hm.get(a)==hm.get(b) ? a.compareTo(b) : hm.get(b) - hm.get(a)
+        );
         
-        for(String key : hm.keySet()){
-            int freq = hm.get(key);
-            
-            if(bucket[freq]== null)
-                bucket[freq] = new ArrayList<>();
-            
-            bucket[freq].add(key);
-        }
+        pq.addAll(hm.keySet());
         
         List<String> ans = new ArrayList<>();
-        for(int i=words.length-1;i>=0 && k>0 ;i--){
-            if(bucket[i]!=null){                
-                List<String> temp = bucket[i];
-                Collections.sort(temp);                
-                ans.addAll(temp);
-                k -= temp.size();
-                
-                if(k < 0){
-                    while(k!=0){
-                        ans.remove(ans.size()-1);
-                        k++;
-                    }
-                }
-            }
+        while(k!=0){
+            ans.add(pq.poll());
+            k--;
         }
         
         return ans;
