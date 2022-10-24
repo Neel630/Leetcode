@@ -34,11 +34,9 @@ class Solution{
 	    dp = new int[n+1][sum+1];
 	    
 	   // return helper(arr,0,sum);
-   	    for(int i=0;i<sum+1;i++) dp[0][i] = 0;
-	    
+
 	    for(int i=0;i<n+1;i++) dp[i][0] = 1;
-	    dp[0][0]=1;
-	    
+	   
 	    for(int i=1;i<n+1;i++){
     	    for(int j=0;j<sum+1;j++){
 	            if(j >= arr[i-1]){
@@ -48,6 +46,13 @@ class Solution{
 	            }
             }
 	    }
+	    
+	   // for(int i=0;i<n+1;i++){
+    // 	    for(int j=0;j<sum+1;j++){
+	   //         System.out.print(dp[i][j] +" ");
+    //         }
+    //         System.out.println();
+	   // }
 	    
 	    return dp[n][sum];
 
