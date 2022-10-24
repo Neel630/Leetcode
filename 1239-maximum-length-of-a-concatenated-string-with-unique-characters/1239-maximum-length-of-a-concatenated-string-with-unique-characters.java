@@ -1,4 +1,5 @@
 class Solution {
+    
     public int maxLength(List<String> arr) {
         return helper(arr, 0, 0);
     }
@@ -10,12 +11,14 @@ class Solution {
         int dupl = 0;
         for(char c : arr.get(i).toCharArray()){
             int j = c - 'a';
+            // check for duplicate within string
             if((dupl & (1<<j)) > 0) {
                 return helper(arr, i+1, bit);
             }
             dupl = dupl | (1<<j);
         }
         
+        // check if duplicate with new string and old string
         if((bit & dupl) > 0) return helper(arr, i+1, bit);
                 
         return Math.max(helper(arr, i+1, bit), arr.get(i).length() + helper(arr, i+1, bit | dupl));
