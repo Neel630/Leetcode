@@ -53,10 +53,10 @@ class Solution
 	    
 	    int min = Integer.MAX_VALUE;
  
-	    for(int i=0;i<rangeArr.length/2+1;i++){
+	    for(int i=0;i<=sum/2;i++){
 	       // System.out.println(rangeArr[i]);
 	        if(rangeArr[i])
-	            min = Math.min(min, Math.abs(sum - (2*i)));
+	            min = Math.min(min, sum - (2*i));
 	    }
 	    
 	    return min;
