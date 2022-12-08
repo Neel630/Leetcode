@@ -1,56 +1,56 @@
 class Trie {
-    public class Node{
-        char val;
-        Node[] childrens;
-        boolean endsHere;
 
-        Node(){
-            childrens = new Node[26];
-        }
+    class Node{
+        char ch;
+        boolean endsHere;
+        Node[] next = new Node[26];
         
         Node(char c){
-            val = c;
-            childrens = new Node[26];
+            ch = c;
         }
     }
-
-    Node root;
+    
+    Node arr;
     public Trie() {
-        root = new Node('\0');
+         arr = new Node('\0');
     }
     
     public void insert(String word) {
-        Node node = root;
+        Node root = arr;
         for(char c : word.toCharArray()){
-            Node temp = node.childrens[c - 'a'];
-            if(temp == null){
-                temp = new Node();
-                node.childrens[c - 'a'] = temp;
+            
+            if(root.next[c-'a'] == null){
+                root.next[c-'a'] = new Node(c);
             }
-            node = temp;
+            
+            root = root.next[c-'a'];
         }
-        node.endsHere = true;
+        root.endsHere = true;
     }
     
     public boolean search(String word) {
-        Node node = root;
+        Node root = arr;
         for(char c : word.toCharArray()){
-            node = node.childrens[c - 'a'];
-            if(node == null){
+            
+            if(root.next[c-'a'] == null){
                 return false;
             }
+            
+            root = root.next[c-'a'];
         }
-        return node.endsHere;
+        return root.endsHere == true;
     }
     
     public boolean startsWith(String prefix) {
-        Node node = root;
+        Node root = arr;
         for(char c : prefix.toCharArray()){
-            node = node.childrens[c - 'a'];
-            if(node == null){
+            
+            if(root.next[c-'a'] == null){
                 return false;
             }
-         }
+            
+            root = root.next[c-'a'];
+        }
         return true;
     }
 }
