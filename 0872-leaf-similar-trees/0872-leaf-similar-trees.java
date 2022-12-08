@@ -15,30 +15,28 @@
  */
 class Solution {
     public boolean leafSimilar(TreeNode root1, TreeNode root2) {
-        List<Integer> list1 = new ArrayList<>();
-        List<Integer> list2 = new ArrayList<>();
-        dfs(root1, list1);
-        dfs(root2, list2);
+        StringBuilder s1 = new StringBuilder("");
+        StringBuilder s2 = new StringBuilder("");
+        dfs(root1, s1);
+        dfs(root2, s2);
+        System.out.println("s1 "+s1);
+        System.out.println("s2 "+s2);
         
-        if(list1.size() != list2.size()) return false;
-        
-        for(int i=0;i<list1.size();i++){
-            if(list1.get(i) != list2.get(i)) return false;
-        }
+        if(!s1.toString().equals(s2.toString())) return false;
         
         return true;
     }
     
-    public void dfs(TreeNode root, List<Integer> list){
+    public void dfs(TreeNode root, StringBuilder stb){
         if(root == null) return;
         
         
         if(root.left == null && root.right == null){ 
-            list.add(root.val);
+            stb.append(Integer.toString(root.val) + "#");
             return;
         }
         
-        if(root.left != null) dfs(root.left, list);
-        if(root.right != null) dfs(root.right, list);
+        dfs(root.left, stb);
+        dfs(root.right, stb);
     }
 }
