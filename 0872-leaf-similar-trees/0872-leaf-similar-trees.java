@@ -19,12 +19,8 @@ class Solution {
         StringBuilder s2 = new StringBuilder("");
         dfs(root1, s1);
         dfs(root2, s2);
-        System.out.println("s1 "+s1);
-        System.out.println("s2 "+s2);
         
-        if(!s1.toString().equals(s2.toString())) return false;
-        
-        return true;
+        return  s1.toString().equals(s2.toString());
     }
     
     public void dfs(TreeNode root, StringBuilder stb){
