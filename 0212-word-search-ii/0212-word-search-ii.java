@@ -1,61 +1,77 @@
 class Solution {
-    public class Node{
-        char val;
-        Node[] childrens = new Node[26];
-        String w;
-        Node(){}
-        Node(char c){
-            val = c;
+    
+    class Node{
+        char c;
+        String word;
+        Node[] next;
+        
+        Node(char ch){
+            c = ch;
+            next = new Node[26];
         }
     }
+    
+    Node trie;
+    List<String> ans;
     
     public List<String> findWords(char[][] board, String[] words) {
-        Node root = build(words);
-        List<String> res = new ArrayList<>();
+        trie = new Node('\0');
+        ans = new ArrayList<>();
         
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[0].length; j++) {
-                dfs (board, i, j, root, res);
+        for(String word : words){
+            buildTrie(word);
+        }
+        
+        for(int i=0;i<board.length;i++){
+            for(int j=0;j<board[0].length;j++){
+                char c = board[i][j];
+                if(trie.next[c-'a']!=null){
+                    dfs(i, j, board, trie);
+                }
             }
         }
-        
-        return res;
+        return ans;
     }
     
-    public void dfs(char[][] board, int i, int j, Node root, List<String> res){
+    public void dfs(int i, int j, char[][] board, Node curr){
+        int n = board.length;
+        int m = board[0].length;
+        if(i<0 || j<0 || j>=m || i>=n) return;
+        
         char c = board[i][j];
+        if(c == '#') return;
         
-        if(c == '#' || root.childrens[c-'a']==null) return;
+        if(curr.next[c-'a'] == null) return;
         
-        if(root.childrens[c-'a'].w != null){
-            res.add(root.childrens[c-'a'].w);
-            root.childrens[c-'a'].w = null;
+        if(curr.next[c-'a'].word != null){
+            ans.add(curr.next[c-'a'].word);
+            curr.next[c-'a'].word = null;
         }
+        
+        curr = curr.next[c-'a'];
         
         board[i][j] = '#';
         
-        if(i>0) dfs(board, i-1, j, root.childrens[c-'a'], res);
-        if(j>0) dfs(board, i, j-1, root.childrens[c-'a'], res);
-        if(i<board.length-1) dfs(board, i+1, j, root.childrens[c-'a'], res);
-        if(j<board[0].length-1) dfs(board, i, j+1, root.childrens[c-'a'], res);
+        dfs(i+1, j, board, curr);
+        dfs(i-1, j, board, curr);
+        dfs(i, j+1, board, curr);
+        dfs(i, j-1, board, curr);
         
         board[i][j] = c;
-    }
-    
-    public Node build(String[] words){
-        Node root = new Node('\0');
         
-        for(String word : words){
-            Node node = root;
-            for(char c : word.toCharArray()){
-                 if(node.childrens[c - 'a'] == null){
-                    node.childrens[c-'a'] = new Node();
-                }
-                node = node.childrens[c-'a'];
+    } 
+    
+    public void buildTrie(String word){
+        Node curr = trie;
+        
+        for(char c : word.toCharArray()){
+            if(curr.next[c-'a'] == null){
+                curr.next[c-'a'] = new Node(c);
             }
-            node.w = word;
+            curr = curr.next[c-'a'];
         }
         
-        return root;
+        curr.word = word;
+        
     }
 }
