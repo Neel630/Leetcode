@@ -3,10 +3,11 @@ class Trie {
     class Node{
         char ch;
         boolean endsHere;
-        Node[] next = new Node[26];
+        Node[] next;
         
         Node(char c){
             ch = c;
+            next = new Node[26];
         }
     }
     
