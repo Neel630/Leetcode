@@ -14,20 +14,20 @@
  * }
  */
 class Solution {
-    int max = 0;
+
     public int maxAncestorDiff(TreeNode root) {
-        dfs(root, new ArrayList<Integer>());
-        return max;
+        return dfs(root, root.val, root.val);
     }
     
-    public void dfs(TreeNode root, List<Integer> arr){
-        if(root == null) return;
+    public int dfs(TreeNode root, int currMax, int currMin){
+        if(root == null) return currMax - currMin;
         
-        for(int a : arr){
-            max = Math.max(max, Math.abs(a - root.val));
-        }
-        arr.add(root.val);
-        dfs(root.left, new ArrayList<>(arr));
-        dfs(root.right, new ArrayList<>(arr));
+        currMax = Math.max(currMax, root.val);
+        currMin = Math.min(currMin , root.val);
+
+        return Math.max(
+        dfs(root.left, currMax, currMin),
+        dfs(root.right, currMax, currMin)
+        );
     }
 }
