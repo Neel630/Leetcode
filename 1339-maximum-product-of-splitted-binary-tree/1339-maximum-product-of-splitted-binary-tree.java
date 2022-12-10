@@ -14,16 +14,30 @@
  * }
  */
 class Solution {
-    long total = 0, res = 0; 
+    private long total = 0;
+    private long maxProduct = 0;
+    
     public int maxProduct(TreeNode root) {
-        total = sum(root); sum(root);
-        return (int)(res % (int)(1e9 + 7));
+        total = getSum(root);
+        getProduct(root);
+        
+        return (int)(maxProduct % 1000000007);
     }
     
-    public long sum(TreeNode root){
+    public int getSum(TreeNode root){
         if(root == null) return 0;
-        long sub = root.val + sum(root.left) + sum(root.right);
-        res = Math.max(res, sub * (total - sub));
+        
+        return getSum(root.left) + root.val + getSum(root.right);
+    }
+    
+    public int getProduct(TreeNode root){
+        if(root == null) return 0;
+        
+        int sub = getProduct(root.left) + root.val + getProduct(root.right);
+        
+        long currProduct = (long)(sub * (total - sub));
+        maxProduct = Math.max(maxProduct, currProduct);
+        
         return sub;
     }
 }
