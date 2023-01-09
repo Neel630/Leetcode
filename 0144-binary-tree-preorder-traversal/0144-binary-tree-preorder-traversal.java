@@ -15,20 +15,20 @@
  */
 class Solution {
     public List<Integer> preorderTraversal(TreeNode root) {
-        Stack<TreeNode> stack = new Stack<>();
+        // Stack<TreeNode> stack = new Stack<>();
         
         List<Integer> ans = new ArrayList<>();
+        helper(root, ans);
+//         stack.push(root);
         
-        stack.push(root);
-        
-        while(!stack.isEmpty()){
-            TreeNode temp = stack.pop();
-            if(temp != null){
-                ans.add(temp.val);
-                stack.push(temp.right);
-                stack.push(temp.left);
-            }
-        }
+//         while(!stack.isEmpty()){
+//             TreeNode temp = stack.pop();
+//             if(temp != null){
+//                 ans.add(temp.val);
+//                 stack.push(temp.right);
+//                 stack.push(temp.left);
+//             }
+//         }
         
         return ans;
     }
