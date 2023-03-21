@@ -2,18 +2,16 @@ class Solution {
     public long zeroFilledSubarray(int[] nums) {
         
         long subarrays = 0;
-        long numZero = 0;
+        long continuousZero = 0;
         
         for(int i=0;i<nums.length;i++){
             if(nums[i] == 0){
-                numZero++;
+                subarrays += ++continuousZero;
             }else{
-                subarrays += (numZero*(numZero+1))/2;
-                numZero = 0;
+                continuousZero = 0;
             }
         }
         
-        subarrays += (numZero*(numZero+1))/2;
         return subarrays;
     }
 }
